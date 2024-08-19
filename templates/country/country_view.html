@@ -1,0 +1,36 @@
+{% extends 'country/flatpages/default.html' %}
+{% load static %}
+
+{% block styles %}
+<link rel="stylesheet" href="{% static 'styles/Country/story.css' %}">
+{% endblock styles %}
+
+{% block content %}
+<div class="story_view_main">
+    <h2><a href="{{ country_view.link_to_story }}">{{ country_view.title }}</a></h2><br>
+    <img class='story_banner' src="{{ country_view.banner.url }}" alt="Banner"><br><br>
+    <p><i>{{ country_view.info | safe}}</i></p>
+    <br><br>
+
+    {% for receipt in country_receipt %}
+        <div class="story_view_receipt">
+            <div class="story_view_receipt_left">
+                <h2><a href="/countryreceipts/receipt/{{ receipt.id }}">{{ receipt.name }} </a></h2>
+                <a href="/countryreceipts/receipts/?section={{ receipt.section.id }}">{{ receipt.section.title }}</a><br>
+            </div>
+            <div class="story_view_receipt_right">
+                <div>
+                    <strong>{{ receipt.description | safe}}</strong><br>
+                </div>
+                <div class="story_view_receipt_author">
+                    <div>
+                        Автор:
+                        {{ receipt.author.profile.nikname }}
+                        - {{ receipt.time_creation | date:'d/m/y H:i' }}
+                    </div>
+                </div>
+            </div>
+        </div><br>
+    {% endfor %}
+</div>
+{% endblock content %}

@@ -1,0 +1,65 @@
+{% extends 'tuliuscookbook/flatpages/default.html' %}
+{% load static %}
+{% block styles %}
+    {{ form.media }}
+    <link rel="stylesheet" href="{% static 'styles/Tuliuscookbook/receipt_edit.css' %}">
+{% endblock %}
+
+
+{% block content %}
+{% if request.user.profile.nikname %}
+    <form enctype="multipart/form-data" method="post">
+        {% csrf_token %}
+        <input type="hidden" name="author" value="{{ request.user.id }}">
+
+        <table>
+        <tr>
+            <td>
+                Название блюда:
+            </td>
+            <td>
+                {{ form.dish_name}}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Фото блюда:
+            </td>
+            <td>
+                {{ form.image}}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                К сюжету:
+            </td>
+            <td>
+                <select size="1" name="story" required id="id_story">
+                    {% for story in stories %}
+                        <option value="{{ story.id }}">{{ story.title }}</option>
+                    {% endfor %}
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Раздел:
+            </td>
+            <td>
+                {{ form.section}}
+            </td>
+        </tr>
+        </table>
+        <br>
+        Текст для списка рецептов: {{ form.description | safe }}<br>
+        Ингридиенты: {{ form.ingredient | safe }}<br>
+        Сам рецепт: {{ form.recipe_text | safe }}<br>
+
+        <button class='submit_button' type="submit" value="Сохранить" >СОХРАНИТЬ</button>
+
+    </form>
+{% else %}
+    Сперва заполните <a href="/accounts/{{ request.user.id }}/profilecreate">профиль. </a>
+{% endif %}
+
+{% endblock content %}

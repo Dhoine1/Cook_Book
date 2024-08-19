@@ -1,0 +1,14 @@
+{% extends 'tuliuscookbook/flatpages/default.html' %}
+
+{% block content %}
+    {% if request.user.id == object.author.id %}
+        <h1>Удалить рецепт {{ object.dish_name }}?</h1>
+
+        <form action="" method="post">
+            {% csrf_token %}
+            <input type="submit" value="Delete" id="delete" />
+        </form>
+    {% else %}
+        <h1> Вы хотите удалить чужой рецепт. Так нельзя!</h1>
+    {% endif %}
+{% endblock content %}

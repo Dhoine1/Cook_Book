@@ -1,0 +1,45 @@
+{% extends 'tuliuscookbook/flatpages/default.html' %}
+
+{% block content %}
+
+{% if form.errors %}
+  <p>Логин или пароль неверные.</p>
+{% endif %}
+
+{% if next %}
+  {% if user.is_authenticated %}
+    <p>Your account doesn't have access to this page. To proceed,
+    please login with an account that has access.</p>
+  {% else %}
+    <p>Please login to see this page.</p>
+  {% endif %}
+{% endif %}
+
+<form method="post" action="{% url 'login' %}">
+{% csrf_token %}
+<table>
+
+<tr>
+  <td>Логин: </td>
+  <td>{{ form.username }}</td>
+</tr>
+
+<tr>
+  <td>Пароль: </td>
+  <td>{{ form.password }}</td>
+</tr>
+<tr>
+  <td></td>
+  <td><input type="submit" value="Войти" /></td>
+</tr>
+</table>
+<br>
+{##}
+{#<input type="hidden" name="next" value="{{ next }}" />#}
+</form>
+
+<a href = '/accounts/signup'> Регистрация </a>
+{# Assumes you setup the password_reset view in your URLconf #}
+<p>Забыли пароль? Напишите Dhoine или Паутинке.</p>
+
+{% endblock %}

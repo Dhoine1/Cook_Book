@@ -1,0 +1,52 @@
+{% extends 'tuliuscookbook/flatpages/default.html' %}
+{% load static %}
+{% load custom_tags %}
+{% block styles %}
+<link rel="stylesheet" href="{% static 'styles/Tuliuscookbook/story.css' %}">
+{% endblock styles %}
+
+{% block content %}
+    <div class="main_div">
+
+        <form action="" method="get">
+             <input type="text" class="search_input" name="story" placeholder="Поиск сюжета">
+             <button type="submit" class="Search_button">Поиск</button>
+        </form>
+
+        <table class="table">
+        <thead>
+            <th>Название</th>
+            <th>Количество рецептов</th>
+        </thead>
+        <tbody>
+            {% for game in games %}
+                <tr class='table_th' onclick="document.location='/tuliuscookbook/games/{{ game.id }}'">
+                    <td class="left_td">
+                        {{ game.title }}
+                    </td>
+                    <td>
+                        {{ game.id|receipt_count }}
+                    </td>
+                </tr>
+            {% endfor %}
+
+        </tbody>
+    </table>
+    <br>
+    <ul>
+    {% for i in page_obj.paginator.page_range %}
+        {% if i != page_obj.number %}
+            <li class="inactive">
+                <a href="?page={{ i }}">{{ i }}</a>
+            </li>
+        {% else %}
+            <li class="active">
+                <a href="?page={{ i }}">{{ i }}</a>
+            </li>
+        {% endif %}
+    {% endfor %}
+    </ul>
+
+    </div>
+
+{% endblock content %}

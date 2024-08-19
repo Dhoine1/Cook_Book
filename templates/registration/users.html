@@ -1,0 +1,45 @@
+{% extends 'tuliuscookbook/flatpages/default.html' %}
+{% load static %}
+{% load custom_users_tags %}
+{% block styles %}
+<link rel="stylesheet" href="{% static 'styles/Registration/users.css' %}">
+{% endblock styles %}
+
+{% block content %}
+    <div class="main_div">
+        <table class="table">
+        <thead>
+            <th>Пользователь</th>
+            <th>Количество рецептов</th>
+        </thead>
+        <tbody>
+            {% for u in users %}
+                <tr class='table_th' onclick="document.location='/accounts/user/{{ u.id }}'">
+                    <td class="left_td">
+                        {{ u.nikname }}
+                    </td>
+                    <td>
+                        {{ u.id|count }}
+                    </td>
+                </tr>
+            {% endfor %}
+
+        </tbody>
+    </table>
+
+
+    <br>
+    <ul>
+    {% for i in page_obj.paginator.page_range %}
+        {% if i != page_obj.number %}
+            <li class="inactive">
+                <a href="?page={{ i }}">{{ i }}</a>
+            </li>
+        {% else %}
+            <li class="active">
+                <a href="?page={{ i }}">{{ i }}</a>
+            </li>
+        {% endif %}
+    {% endfor %}
+    </ul>
+{% endblock content %}

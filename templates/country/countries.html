@@ -1,0 +1,48 @@
+{% extends 'country/flatpages/default.html' %}
+
+{% load static %}
+
+{% block styles %}
+<link rel="stylesheet" href="{% static 'styles/country/countries.css' %}">
+{% endblock styles %}
+
+{% block content %}
+    <div class="main_div">
+
+        <table class="table">
+        <thead>
+            <th>Название</th>
+            <th>Флаг</th>
+        </thead>
+        <tbody>
+            {% for country in countries %}
+                <tr class='table_th' onclick="document.location='/countryreceipts/country/{{ country.id }}'">
+                    <td class="left_td">
+                        <h2>{{ country.title }}</h2>
+                    </td>
+                    <td>
+                        <img class='country_flag' src="{{ country.flag.url }}" alt="{{ country.title }} flag" />
+                    </td>
+                </tr>
+            {% endfor %}
+
+        </tbody>
+    </table>
+    <br>
+    <ul>
+    {% for i in page_obj.paginator.page_range %}
+        {% if i != page_obj.number %}
+            <li class="inactive">
+                <a href="?page={{ i }}">{{ i }}</a>
+            </li>
+        {% else %}
+            <li class="active">
+                <a href="?page={{ i }}">{{ i }}</a>
+            </li>
+        {% endif %}
+    {% endfor %}
+    </ul>
+
+    </div>
+
+{% endblock content %}

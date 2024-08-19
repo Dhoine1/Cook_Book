@@ -1,0 +1,19 @@
+{% extends 'tuliuscookbook/flatpages/default.html' %}
+{% load static %}
+
+{% block styles %}
+<link rel="stylesheet" href="{% static 'styles/Tuliuscookbook/receipt.css' %}">
+{% endblock styles %}
+
+{% block content %}
+    {% if request.user.id == object.author.id %}
+        <h1>Удалить комментарий:</h1> {{ object.text | safe}}?
+        <br><br>
+        <form action="" method="post">
+            {% csrf_token %}
+            <button class='submit_button' type="submit" value="Delete" id="delete">Удалить</button>
+        </form>
+    {% else %}
+        <h1> Вы хотите удалить чужой комментарий. Так нельзя!</h1>
+    {% endif %}
+{% endblock content %}

@@ -1,0 +1,20 @@
+{% extends 'tuliuscookbook/flatpages/default.html' %}
+{% load static %}
+
+{% block styles %}
+<link rel="stylesheet" href="{% static 'styles/Tuliuscookbook/receipt.css' %}">
+{% endblock styles %}
+
+
+{% block content %}
+    {% if request.user.id == object.author.id %}
+    <form enctype="multipart/form-data" method="post">
+        {% csrf_token %}
+        Комментарий:<br>
+        {{ form.text }}<br><br>
+        <button class='submit_button' type="submit" value="Сохранить" >Сохранить</button>
+    </form>
+    {% else %}
+        <h1>Вы не можете редактировать чужой комментарий!</h1>
+    {% endif %}
+{% endblock content %}

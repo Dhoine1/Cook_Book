@@ -1,0 +1,106 @@
+{% extends 'country/flatpages/default.html' %}
+{% load static %}
+
+{% block styles %}
+<link rel="stylesheet" href="{% static 'styles/Country/receipt.css' %}">
+{% endblock styles %}
+
+{% block content %}
+    <div class="receipt_infoblock">
+        <div class="receipt_infoblock_image">
+            <img class='receipt_image' src="{{ receipt.foto }}" alt="receipt image"/>
+        </div>
+
+        <div class="receipt_description">
+            <h1>{{ receipt.name }}</h1>
+            <i>{{ receipt.description | safe }}</i><br><br>
+            Страна: <a href="/countryreceipts/country/{{ receipt.country.id }}"><strong>{{ receipt.country.title }}</strong><br><br></a>
+            Автор рецепта: <strong>{{ receipt.author.profile.nikname }}</strong>
+        </div>
+    </div>
+
+    <br>
+    <div>
+        <h2>О блюде</h2>
+        {{ receipt.about | safe }}
+    </div>
+
+    <br>
+    <div class="receipt_line">
+        <img class="receipt_line_image" src="{% static 'images/LA.png' %}" alt="divide line"/>
+    </div>
+    <br>
+
+    <div class="receipt_ingridients">
+        <h2>Ингридиенты</h2>
+        {{ receipt.ingredient | safe }}
+    <br>
+    </div>
+
+    <br>
+    <div class="receipt_line">
+        <img class="receipt_line_image" src="{% static 'images/LA.png' %}" alt="divide line"/>
+    </div>
+    <br>
+
+    <div class="receipt_himself">
+        <h2>Рецепт</h2>
+        {{ receipt.recipe_text | safe }}
+    </div>
+    <br>
+    <div class="receipt_line">
+        <img class="receipt_line_image" src="{% static 'images/LA.png' %}" alt="divide line"/>
+    </div>
+
+    <h2>Комментарии:</h2>
+    {% for comment in comments %}
+        <div class="story_view_comment">
+            <div class="story_view_comment_left">
+                <br>
+                <img width="100px" src="{{ comment.author.profile.avatar.url }}" alt="avatar"/><br>
+                <strong>{{ comment.author.profile.nikname }}</strong>
+            </div>
+            <div class="story_view_comment_right">
+                <div class="story_view_comment_right_text">
+                    <div>
+                        <br>
+                        {{ comment.text | safe}}<br><br>
+                    </div>
+                    <div>
+                        Создан:  {{ comment.time_creation | date:'d/m/y H:i'}}
+                    </div>
+                </div>
+                <div class="story_view_comment_right_text">
+                    <div>
+                        <br>
+                        {% if request.user.id == comment.author.id %}
+                            <a class='story_view_comment_edit_a' href="/countryreceipts/comment/{{ comment.id }}/edit/">Редактировать</a>
+                            <a class='story_view_comment_delete_a' href="/countryreceipts/comment/{{ comment.id }}/delete/">Удалить</a>
+                            <br>
+                        {% endif %}
+                    </div>
+                    <div>
+                        {% if comment.time_creation != comment.time_change %}
+                            Отредактирован:  {{ comment.time_change | date:'d/m/y H:i'}}
+                        {% endif %}
+                    </div>
+                </div>
+
+                <hr>
+                <p>
+                    <i>{{ comment.author.profile.signature }}</i>
+                </p>
+            </div>
+         </div><br>
+
+    {% endfor %}
+    <br>
+
+    <form enctype="multipart/form-data" method="post">
+        {% csrf_token %}
+        <strong>Написать комментарий:</strong><br>
+        <textarea cols="100" name="text"></textarea>
+        <br><br>
+        <button class='submit_button' type="submit">Сохранить</button>
+    </form>
+{% endblock content %}

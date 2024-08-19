@@ -1,0 +1,72 @@
+{% load static %}
+
+<html lang="en">
+<head>
+    <title>Кулинарная книга</title>
+    <link rel="stylesheet" href="{% static 'styles/Tuliuscookbook/header_style.css' %}">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    {% block styles %}
+    {{ flatpage.content }}
+    {% endblock styles %}
+</head>
+
+<body>
+
+<header>
+    <div class="header_main">
+        <div class="header_start_page">
+            <a href="/tuliuscookbook/start/">
+                <img class='header_start_page_image' src="{% static 'images/logo_small.png' %}" alt="Logo small">
+            </a>
+        </div>
+        <div class="header_title"><h1>КУЛИНАРНАЯ КНИГА</h1></div>
+        <div class="header_login">
+            {% if request.user.is_authenticated %}
+                {% if request.user.profile.nikname %}
+{#                    <img class='header_avatar' src="{{ request.user.profile.avatar.url }}" alt="Avatar">#}
+{#                    <br>#}
+{#                    <strong>{{ request.user.profile.nikname }}</strong> #}
+                    <h2>
+                        <a href="/accounts/{{ request.user.id }}/profileupdate">{{ request.user.profile.nikname }}</a>
+                    </h2>
+{#                    <img class='header_avatar' src="{{ request.user.profile.avatar.url }}" alt="Avatar"><br>#}
+                {% else %}
+                    <a href="/accounts/{{ request.user.id }}/profilecreate">Заполните свой профиль</a><br>
+                {% endif %}
+
+            {% endif %}
+        </div>
+    </div>
+</header>
+
+<div class="canva_line">   </div>
+
+<main>
+    <div class="main_menu">
+        {% if request.user.is_authenticated %}
+            {% if request.user.profile.nikname %}
+                <a href="/accounts/users/">Пользователи</a>
+            {% else %}
+                <a href="/accounts/{{ request.user.id }}/profilecreate">Заполнить профиль</a>
+            {% endif %}
+                <a href="/tuliuscookbook/create/">Добавить рецепт</a>
+        {% endif %}
+        <a href="/tuliuscookbook/games/">Игры</a>
+        <a href="/tuliuscookbook/receipts/">Рецепты по играм</a>
+        <a href="/tuliuscookbook/fact/">Факты</a>
+        {% if request.user.is_authenticated %}
+            <a href="/accounts/logout">Выход</a>
+        {% else %}
+            <a href="/accounts/login">Вход/Регистрация</a>
+        {% endif %}
+    </div>
+    <div class="main_block">
+        {% block content %}
+        {{ flatpage.content }}
+        {% endblock content %}
+    </div>
+</main>
+
+
+</body>
+</html>
