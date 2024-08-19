@@ -1,0 +1,77 @@
+a{
+    text-decoration: none;
+    color: black;
+}
+
+.receipt_infoblock{
+    display: flex;
+}
+
+.receipt_infoblock_image{
+    width: 500px;
+    padding: 0 15px 0 0;
+    border-right: 1px solid black;
+}
+
+.receipt_image{
+    border: 2px solid black;
+    width: 490px;
+}
+
+.receipt_description{
+    padding: 25px;
+}
+
+.receipt_line{
+    text-align: center;
+}
+
+.receipt_line_image{
+    height: 50px;
+}
+
+.story_view_comment{
+    border-radius: 15px;
+    background-image: url(../../images/breadcrumbs.png);
+    background-repeat: repeat;
+    border: 1px solid black;
+    display: flex;
+    font-size: 1em;
+}
+
+.story_view_comment_left{
+    width: 150px;
+    border-right: 1px solid black;
+    text-align: center;
+}
+
+.story_view_comment_right{
+    padding-inline: 20px;
+    width: 100%;
+}
+
+.story_view_comment_right_text{
+    display: flex;
+    justify-content: space-between;
+}
+
+.story_view_comment_edit_a{
+    color: darkblue;
+    text-decoration: none;
+    padding: 0 20px 0 0;
+}
+
+.story_view_comment_delete_a{
+    color: darkred;
+    text-decoration: none;
+}
+
+.submit_button{
+    border-radius: 15px;
+    border: 1px solid black;
+    background: linear-gradient(to bottom, #71716B, #2F2F1E);
+    color: #f8f9fa;
+    font-size: 1em;
+    padding: 10px;
+    cursor: pointer;
+}

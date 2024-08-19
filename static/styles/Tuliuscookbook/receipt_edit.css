@@ -1,0 +1,21 @@
+.ck.ck-content.ck-editor__editable {
+    min-height: 100px;
+}
+
+.ck-word-count__words{
+    display: none;
+}
+
+.ck-word-count__characters{
+    display: none;
+}
+
+.submit_button{
+    border-radius: 15px;
+    border: 1px solid black;
+    background: linear-gradient(to bottom, #71716B, #2F2F1E);
+    color: #f8f9fa;
+    font-size: 1em;
+    padding: 10px;
+    cursor: pointer;
+}

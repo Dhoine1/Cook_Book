@@ -1,0 +1,124 @@
+ul{
+    display: inline-block;
+    padding: 0;
+    margin: 0;
+}
+
+ul li{
+    display: inline;
+    border-radius: 25px;
+}
+
+ul li a{
+    transition: background-color .3s;
+    float: left;
+    padding: 8px 16px;
+    text-decoration: none;
+}
+
+.active a{
+    color:white;
+    background: #93051a;
+}
+
+ul li a:hover{
+    background: #93051a;
+    color: white;
+}
+
+table{
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+.main_div{
+    text-align: center;
+}
+
+table thead{
+    background-color: #93051a;
+    color: #ebd9b9;
+}
+
+table th , table td{
+    text-align: center;
+}
+
+table tr:nth-child(even){
+    background-color: #ebd9b9
+}
+
+.table_th:hover{
+    background-color: #9d8160;
+    cursor: pointer;
+}
+
+.story_view_main{
+    text-align: center;
+}
+
+h2{
+    font-size: 1.5em;
+}
+
+h2 a{
+    text-decoration: none;
+    color: black;
+}
+
+.story_view_receipt{
+    border-radius: 15px;
+    background-image: url(../../images/breadcrumbs.png);
+    background-repeat: repeat;
+    border: 1px solid black;
+    display: flex;
+}
+
+.story_view_receipt_left{
+    width: 30%;
+    border-right: 1px solid black;
+}
+
+.story_view_receipt_left a:hover{
+    color: #93051a;
+}
+
+.story_view_receipt_right{
+    width: 70%;
+}
+
+.story_view_receipt_author{
+    display: flex;
+    justify-content: space-between;
+    padding: 0px 20px 10px 20px;
+}
+
+div a{
+    text-decoration: none;
+    color: black;
+}
+
+div a:hover{
+    color: #93051a;
+}
+
+.menu_section{
+    display: flex;
+    justify-content: space-around;
+}
+
+.story_view_comment_edit_a{
+    color: darkblue;
+    text-decoration: none;
+    padding: 0 20px 0 0;
+}
+
+.story_view_comment_delete_a{
+    color: darkred;
+    text-decoration: none;
+}
+
+.avatar_view{
+    width: 250px;
+}

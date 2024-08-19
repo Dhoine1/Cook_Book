@@ -1,0 +1,30 @@
+.main {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+	background: linear-gradient(#d69200, #000000);
+    display: flex;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+    overflow: auto;
+}
+
+.block {
+	width: 400px;
+	height: 200px;
+	padding: 20px;
+	border-radius: 25px;
+	border: 2px solid #d69200;
+    line-height: 50px;
+    text-align: center;
+	color: #e8a82a;
+}
+
+.block:hover {
+	border: 3px solid #d69200;
+	box-shadow: 3px 3px 4px;
+	cursor: pointer;
+}

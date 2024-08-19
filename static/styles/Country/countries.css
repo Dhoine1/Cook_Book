@@ -1,0 +1,61 @@
+ul{
+    display: inline-block;
+    padding: 0;
+    margin: 0;
+}
+
+ul li{
+    display: inline;
+    border-radius: 25px;
+}
+
+ul li a{
+    transition: background-color .3s;
+    float: left;
+    padding: 8px 16px;
+    text-decoration: none;
+}
+
+.active a{
+    color:white;
+    background: #93051a;
+}
+
+ul li a:hover{
+    background: #93051a;
+    color: white;
+}
+
+table{
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+.main_div{
+    text-align: center;
+}
+
+table thead{
+    background-color: #93051a;
+    color: #ebd9b9;
+}
+
+table th , table td{
+    text-align: center;
+    width: 300px;
+    height: 50px;
+}
+
+table tr:nth-child(even){
+    background-color: #ebd9b9
+}
+
+.table_th:hover{
+    background-color: #9d8160;
+    cursor: pointer;
+}
+
+.country_flag{
+    width: 80px;
+}
