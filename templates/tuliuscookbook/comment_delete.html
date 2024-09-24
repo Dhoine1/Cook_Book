@@ -7,9 +7,9 @@
 
 {% block content %}
     {% if request.user.id == object.author.id %}
-        <h1>Удалить комментарий:</h1> {{ object.text | safe}}?
+        <h1>Удалить комментарий:</h1> <div class="story_view_comment">{{ object.text | safe}}?</div>
         <br><br>
-        <form action="" method="post">
+        <form action="" method="post" class="comment_form">
             {% csrf_token %}
             <button class='submit_button' type="submit" value="Delete" id="delete">Удалить</button>
         </form>

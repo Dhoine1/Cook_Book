@@ -1,11 +1,19 @@
 {% extends 'country/flatpages/default.html' %}
 {% load static %}
 {% load custom_tags %}
+
 {% block styles %}
 <link rel="stylesheet" href="{% static 'styles/Country/story.css' %}">
 {% endblock styles %}
 
 {% block content %}
+    <script type="text/javascript">
+    const url_string = window.location.href;
+    const url = new URL(url_string);
+    const paramValue = url.searchParams.get("section") ? url.searchParams.get("section") : '';
+    const clearurl = window.location.href.split('?')[0]
+    </script>
+
     <div class="story_view_main">
         <div>
             <h1>СПИСОК РЕЦЕПТОВ</h1>
@@ -19,27 +27,24 @@
 
 
     {% for receipt in receipt_list %}
-         <div class="story_view_receipt">
+        <div class="story_view_receipt">
             <div class="story_view_receipt_left">
                 <h2><a href="/countryreceipts/receipt/{{ receipt.id }}">{{ receipt.name }} </a></h2>
+                <a href="/countryreceipts/country/{{ receipt.country.id }}"><strong>{{ receipt.country.title }}</strong></a> --
                 <a href="/countryreceipts/receipts/?section={{ receipt.section.id }}">{{ receipt.section.title }}</a><br>
             </div>
             <div class="story_view_receipt_right">
                 <div>
-                    <strong>{{ receipt.description | safe}}</strong>
+                    <p>{{ receipt.description | safe }}</p>
                 </div>
+                <hr>
                 <div class="story_view_receipt_author">
-{#                    <div>#}
-{#                        {% if request.user.id == receipt.author.id %}#}
-{#                            <a class='story_view_comment_edit_a' href="/tuliuscookbook/receipt/{{ receipt.id }}/edit/">Редактировать</a>#}
-{#                            <a class='story_view_comment_delete_a' href="/tuliuscookbook/receipt/{{ receipt.id }}/delete/">Удалить</a>#}
-{#                        {% endif %}#}
-{#                    </div>#}
                     <div>
                         Автор:
                             {{ receipt.author.profile.nikname }}
-                            - {{ receipt.time_creation | date:'d/m/y H:i' }} -
-                        <a href="/countryreceipts/country/{{ receipt.country.id }}">"{{ receipt.country.title }}"</a>
+                            - {{ receipt.time_creation | date:'d/m/y H:i' }}
+                        <br><br>
+                        Комментариев: {{ receipt.id|comment_count_country }}
                     </div>
                 </div>
             </div>
@@ -51,11 +56,11 @@
     {% for i in page_obj.paginator.page_range %}
         {% if i != page_obj.number %}
             <li class="inactive">
-                <a href="?page={{ i }}">{{ i }}</a>
+                <a href="" onclick="location.href=clearurl+'?page={{ i }}&section='+paramValue;return false;">{{ i }}</a>
             </li>
         {% else %}
             <li class="active">
-                <a href="?page={{ i }}">{{ i }}</a>
+                <a href="" onclick="location.href=clearurl+'?page={{ i }}&section='+paramValue;return false;">{{ i }}</a>
             </li>
         {% endif %}
     {% endfor %}

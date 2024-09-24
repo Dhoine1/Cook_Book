@@ -1,7 +1,7 @@
 {% extends 'tuliuscookbook/flatpages/default.html' %}
 
 {% block content %}
-
+<div class="class_for_registration">
 {% if form.errors %}
   <p>Логин или пароль неверные.</p>
 {% endif %}
@@ -41,5 +41,6 @@
 <a href = '/accounts/signup'> Регистрация </a>
 {# Assumes you setup the password_reset view in your URLconf #}
 <p>Забыли пароль? Напишите Dhoine или Паутинке.</p>
+</div>
 
 {% endblock %}

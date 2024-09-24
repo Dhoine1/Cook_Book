@@ -1,5 +1,6 @@
 {% extends 'country/flatpages/default.html' %}
 {% load static %}
+{% load custom_tags %}
 
 {% block styles %}
 <link rel="stylesheet" href="{% static 'styles/Country/story.css' %}">
@@ -16,21 +17,25 @@
         <div class="story_view_receipt">
             <div class="story_view_receipt_left">
                 <h2><a href="/countryreceipts/receipt/{{ receipt.id }}">{{ receipt.name }} </a></h2>
+                <a href="/countryreceipts/country/{{ receipt.country.id }}"><strong>{{ receipt.country.title }}</strong></a> --
                 <a href="/countryreceipts/receipts/?section={{ receipt.section.id }}">{{ receipt.section.title }}</a><br>
             </div>
             <div class="story_view_receipt_right">
                 <div>
-                    <strong>{{ receipt.description | safe}}</strong><br>
+                    <p>{{ receipt.description | safe }}</p>
                 </div>
+                <hr>
                 <div class="story_view_receipt_author">
                     <div>
                         Автор:
-                        {{ receipt.author.profile.nikname }}
-                        - {{ receipt.time_creation | date:'d/m/y H:i' }}
+                            {{ receipt.author.profile.nikname }}
+                            - {{ receipt.time_creation | date:'d/m/y H:i' }}
+                        <br><br>
+                        Комментариев: {{ receipt.id|comment_count_country }}
                     </div>
                 </div>
             </div>
-        </div><br>
+         </div><br>
     {% endfor %}
 </div>
 {% endblock content %}

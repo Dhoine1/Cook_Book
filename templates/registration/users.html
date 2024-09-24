@@ -1,4 +1,4 @@
-{% extends 'tuliuscookbook/flatpages/default.html' %}
+﻿{% extends 'tuliuscookbook/flatpages/default.html' %}
 {% load static %}
 {% load custom_users_tags %}
 {% block styles %}
@@ -6,20 +6,47 @@
 {% endblock styles %}
 
 {% block content %}
+<script type="text/javascript">
+    const url_string = window.location.href;
+    const url = new URL(url_string);
+    const paramValue = url.searchParams.get("sort_by") ? url.searchParams.get("sort_by") : 'nickname';
+    const clearurl = window.location.href.split('?')[0]
+    </script>
+
     <div class="main_div">
+        <form action="" method="get" class="search_form">
+            <strong>Сортировать по:</strong>
+            <select size="1" name="sort_by">
+                <option selected value="nickname">Алфавиту</option>
+                <option value="receipts_count">Кол-во рецептов</option>
+                <option value="date">Дате регистрации</option>
+            </select><br><br>
+            <input type="text" class="search_input" name="author" placeholder="Поиск автора">
+            <button type="submit" class="Search_button">Применить</button>
+        </form>
+
+
         <table class="table">
         <thead>
             <th>Пользователь</th>
             <th>Количество рецептов</th>
+            <th>Дата регистрации</th>
+            <th>Последний вход</th>
         </thead>
         <tbody>
             {% for u in users %}
-                <tr class='table_th' onclick="document.location='/accounts/user/{{ u.id }}'">
+                <tr class='table_th' onclick="document.location='/accounts/user/{{ u.profile.id }}'">
                     <td class="left_td">
-                        {{ u.nikname }}
+                        {{ u.profile.nikname }}
                     </td>
                     <td>
-                        {{ u.id|count }}
+                        {{ u.number }}
+                    </td>
+                    <td>
+                        {{ u.date_joined | date:'d/m/y' }}
+                    </td>
+                    <td>
+                        {{ u.last_login | date:'d/m/y H:i' }}
                     </td>
                 </tr>
             {% endfor %}
@@ -33,11 +60,11 @@
     {% for i in page_obj.paginator.page_range %}
         {% if i != page_obj.number %}
             <li class="inactive">
-                <a href="?page={{ i }}">{{ i }}</a>
+                <a href="" onclick="location.href=clearurl+'?page={{ i }}&sort_by='+paramValue;return false;">{{ i }}</a>
             </li>
         {% else %}
             <li class="active">
-                <a href="?page={{ i }}">{{ i }}</a>
+               <a href="" onclick="location.href=clearurl+'?page={{ i }}&sort_by='+paramValue;return false;">{{ i }}</a>
             </li>
         {% endif %}
     {% endfor %}

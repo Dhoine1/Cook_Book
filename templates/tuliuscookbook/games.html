@@ -1,4 +1,4 @@
-{% extends 'tuliuscookbook/flatpages/default.html' %}
+﻿{% extends 'tuliuscookbook/flatpages/default.html' %}
 {% load static %}
 {% load custom_tags %}
 {% block styles %}
@@ -6,11 +6,23 @@
 {% endblock styles %}
 
 {% block content %}
+    <script type="text/javascript">
+    const url_string = window.location.href;
+    const url = new URL(url_string);
+    const paramValue = url.searchParams.get("sort_by") ? url.searchParams.get("sort_by") : 'title';
+    const clearurl = window.location.href.split('?')[0]
+    </script>
+
     <div class="main_div">
 
-        <form action="" method="get">
-             <input type="text" class="search_input" name="story" placeholder="Поиск сюжета">
-             <button type="submit" class="Search_button">Поиск</button>
+        <form action="" method="get" class="search_form">
+            <strong>Сортировать по:</strong>
+            <select size="1" name="sort_by">
+                <option selected value="title">Названию</option>
+                <option value="receipts_count">Кол-во рецептов</option>
+            </select><br><br>
+            <input type="text" class="search_input" name="story" placeholder="Поиск сюжета">
+            <button type="submit" class="Search_button">Применить</button>
         </form>
 
         <table class="table">
@@ -25,7 +37,7 @@
                         {{ game.title }}
                     </td>
                     <td>
-                        {{ game.id|receipt_count }}
+                       {{ game.number }}
                     </td>
                 </tr>
             {% endfor %}
@@ -37,11 +49,11 @@
     {% for i in page_obj.paginator.page_range %}
         {% if i != page_obj.number %}
             <li class="inactive">
-                <a href="?page={{ i }}">{{ i }}</a>
+                <a href="" onclick="location.href=clearurl+'?page={{ i }}&sort_by='+paramValue;return false;">{{ i }}</a>
             </li>
         {% else %}
             <li class="active">
-                <a href="?page={{ i }}">{{ i }}</a>
+                <a href="" onclick="location.href=clearurl+'?page={{ i }}&sort_by='+paramValue;return false;">{{ i }}</a>
             </li>
         {% endif %}
     {% endfor %}

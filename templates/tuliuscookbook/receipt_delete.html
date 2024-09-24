@@ -1,4 +1,9 @@
 {% extends 'tuliuscookbook/flatpages/default.html' %}
+{% load static %}
+
+{% block styles %}
+<link rel="stylesheet" href="{% static 'styles/Tuliuscookbook/receipt.css' %}">
+{% endblock styles %}
 
 {% block content %}
     {% if request.user.id == object.author.id %}
@@ -6,7 +11,7 @@
 
         <form action="" method="post">
             {% csrf_token %}
-            <input type="submit" value="Delete" id="delete" />
+            <input type="submit" value="Удалить" id="delete" class="submit_button"/>
         </form>
     {% else %}
         <h1> Вы хотите удалить чужой рецепт. Так нельзя!</h1>

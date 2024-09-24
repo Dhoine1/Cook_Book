@@ -1,0 +1,54 @@
+{% extends 'tuliuscookbook/flatpages/default.html' %}
+{% load static %}
+{#{% load custom_users_tags %}#}
+{% load custom_tags %}
+
+{% block styles %}
+<link rel="stylesheet" href="{% static 'styles/Registration/comments.css' %}">
+{% endblock styles %}
+
+{% block content %}
+    <h2>Мои комментарии:</h2>
+   <div>
+   <table>
+        <th>К рецепту</th>
+        <th>Комментарий</th>
+        <th>Информация</th>
+        <th>Автор</th>
+       {% for comment in mycomments %}
+           <tr>
+            <td>
+                <strong>
+                    <a href="/tuliuscookbook/receipt/{{ comment.recipe.id }}">
+                        {{ comment.recipe.dish_name }}</a></strong>
+            </td>
+            <td>
+            {{ comment.text | safe}}
+            </td>
+           <td>
+           <i>
+               Создан:  {{ comment.time_creation | date:'d/m/y H:i'}}<br>
+
+               {% if comment.id|comment_changed  %}
+                   <i>Отредактирован:  {{ comment.time_change | date:'d/m/y H:i'}}</i>
+                   <br> {{ comment.change }}
+               {% endif %}
+
+           </i>
+           {% if request.user.id == comment.author.id %}
+               <a class='story_view_comment_edit_a' href="/tuliuscookbook/comment/{{ comment.id }}/edit/">Редактировать</a>
+               <a class='story_view_comment_delete_a' href="/tuliuscookbook/comment/{{ comment.id }}/delete/">Удалить</a>
+               <br>
+           {% endif %}
+            </td>
+           <td>
+                <a href="/accounts/user/{{ comment.author.profile.id }}">
+                    {{ comment.author.profile.nikname }}
+                </a>
+            </td>
+           </tr>
+
+       {% endfor %}
+   </table>
+   </div>
+{% endblock content %}

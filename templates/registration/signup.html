@@ -1,18 +1,20 @@
-{% extends 'tuliuscookbook/flatpages/default.html' %}
+﻿{% extends 'tuliuscookbook/flatpages/default.html' %}
 
 
 {% block content %}
-
+<div class="class_for_registration">
 <form method="post">
 {% csrf_token %}
 
 <table>
     <tr>
       <td>Логин: </td>
-      <td>{{ form.username }}</td>
+
+      <td>{{ form.errors }}<br>
+          {{ form.username }}</td>
     </tr>
     <tr>
-      <td>Пароль: </td>
+      <td>Пароль (не менее 7 символов): </td>
       <td>{{ form.password1 }}</td>
     </tr>
     <tr>
@@ -25,11 +27,13 @@
     </tr>
     <tr>
       <td></td>
-      <td><input type="submit" value="Зарегистрироваться"></td>
+      <td>
+          <input type="submit" value="Зарегистрироваться">
+      </td>
     </tr>
 </table>
 <br>
 
 </form>
-
+</div>
 {% endblock %}

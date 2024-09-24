@@ -8,7 +8,7 @@
 
 {% block content %}
     {% if request.user.id == object.author.id %}
-    <form enctype="multipart/form-data" method="post">
+    <form enctype="multipart/form-data" method="post" class="comment_form">
         {% csrf_token %}
         Комментарий:<br>
         {{ form.text }}<br><br>

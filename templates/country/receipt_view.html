@@ -1,5 +1,6 @@
-{% extends 'country/flatpages/default.html' %}
+﻿{% extends 'country/flatpages/default.html' %}
 {% load static %}
+{% load custom_tags %}
 
 {% block styles %}
 <link rel="stylesheet" href="{% static 'styles/Country/receipt.css' %}">
@@ -32,7 +33,7 @@
     <br>
 
     <div class="receipt_ingridients">
-        <h2>Ингридиенты</h2>
+        <h2>Ингредиенты</h2>
         {{ receipt.ingredient | safe }}
     <br>
     </div>
@@ -57,7 +58,13 @@
         <div class="story_view_comment">
             <div class="story_view_comment_left">
                 <br>
-                <img width="100px" src="{{ comment.author.profile.avatar.url }}" alt="avatar"/><br>
+	{%  if  comment.author.profile.avatar %}
+                		 <img width="100px" src="{{ comment.author.profile.avatar.url }}" alt="avatar"/>
+            	{% else %}
+                		<img width="100px" src="{% static 'images/no_foto.jpg' %}" alt="no image"/>
+            	{% endif %}
+
+                <br>
                 <strong>{{ comment.author.profile.nikname }}</strong>
             </div>
             <div class="story_view_comment_right">
@@ -67,7 +74,8 @@
                         {{ comment.text | safe}}<br><br>
                     </div>
                     <div>
-                        Создан:  {{ comment.time_creation | date:'d/m/y H:i'}}
+                        <br>
+                        <i> Создан:  {{ comment.time_creation | date:'d/m/y H:i'}} </i>
                     </div>
                 </div>
                 <div class="story_view_comment_right_text">
@@ -80,8 +88,9 @@
                         {% endif %}
                     </div>
                     <div>
-                        {% if comment.time_creation != comment.time_change %}
-                            Отредактирован:  {{ comment.time_change | date:'d/m/y H:i'}}
+                        {% if comment.id|comment_changed_country  %}
+                            <i>Отредактирован:  {{ comment.time_change | date:'d/m/y H:i'}}</i>
+                            <br> {{ comment.change }}
                         {% endif %}
                     </div>
                 </div>

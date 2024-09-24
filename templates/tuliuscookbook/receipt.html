@@ -1,5 +1,6 @@
-{% extends 'tuliuscookbook/flatpages/default.html' %}
+﻿{% extends 'tuliuscookbook/flatpages/default.html' %}
 {% load static %}
+{% load custom_tags %}
 
 {% block styles %}
 <link rel="stylesheet" href="{% static 'styles/Tuliuscookbook/receipt.css' %}">
@@ -8,19 +9,31 @@
 {% block content %}
     <div class="receipt_infoblock">
         <div class="receipt_infoblock_image">
-            <img class='receipt_image' src="{{ receipt.image.url }}" alt="receipt image"/>
+            {%  if receipt.image %}
+                <img class='receipt_image' src="{{ receipt.image.url }}" alt="receipt image"/>
+            {% else %}
+                <img class='receipt_image' src="{% static 'images/no_foto.jpg' %}" alt="no image"/>
+            {% endif %}
         </div>
 
         <div class="receipt_description">
             <h1>{{ receipt.dish_name }}</h1>
             <i>{{ receipt.description | safe }}</i><br><br>
             К сюжету: <a href="/tuliuscookbook/games/{{ receipt.story.id }}"><strong>{{ receipt.story.title }}</strong><br><br></a>
-            Автор рецепта: <a href="/accounts/user/{{ receipt.author.id }}"> <strong>{{ receipt.author.profile.nikname }}</strong></a>
+            Автор рецепта: <a href="/accounts/user/{{ receipt.author.profile.id }}"> <strong>{{ receipt.author.profile.nikname }}</strong></a>
         </div>
     </div>
 
+        <div class="only_for_small">
+            <br>
+            <div class="receipt_line">
+                <img class="receipt_line_image" src="{% static 'images/LA.png' %}" alt="divide line"/>
+            </div>
+            <br>
+        </div>
+
     <div class="receipt_ingridients">
-        <h2>Ингридиенты</h2>
+        <h2>Ингредиенты:</h2>
         {{ receipt.ingredient | safe }}
     <br>
     </div>
@@ -45,7 +58,13 @@
         <div class="story_view_comment">
             <div class="story_view_comment_left">
                 <br>
-                <img width="100px" src="{{ comment.author.profile.avatar.url }}" alt="avatar"/><br>
+	 {%  if  comment.author.profile.avatar %}
+                		 <img width="100px" src="{{ comment.author.profile.avatar.url }}" alt="avatar"/>
+            	{% else %}
+                		<img width="100px" src="{% static 'images/no_foto.jpg' %}" alt="no image"/>
+            	{% endif %}
+
+               <br>
                 <strong>{{ comment.author.profile.nikname }}</strong>
             </div>
             <div class="story_view_comment_right">
@@ -54,10 +73,14 @@
                         <br>
                         {{ comment.text | safe}}<br><br>
                     </div>
-                    <div>
-                        Создан:  {{ comment.time_creation | date:'d/m/y H:i'}}
-                    </div>
                 </div>
+
+                <div class="story_view_comment_right_text_create">
+                    <i>
+                        Создан:  {{ comment.time_creation | date:'d/m/y H:i'}}
+                    </i>
+                </div>
+
                 <div class="story_view_comment_right_text">
                     <div>
                         <br>
@@ -68,8 +91,10 @@
                         {% endif %}
                     </div>
                     <div>
-                        {% if comment.time_creation != comment.time_change %}
-                            Отредактирован:  {{ comment.time_change | date:'d/m/y H:i'}}
+
+                        {% if comment.id|comment_changed  %}
+                            <i>Отредактирован:  {{ comment.time_change | date:'d/m/y H:i'}}</i>
+                            <br> {{ comment.change }}
                         {% endif %}
                     </div>
                 </div>
@@ -84,11 +109,13 @@
     {% endfor %}
     <br>
 
-    <form enctype="multipart/form-data" method="post">
+{% if request.user.is_authenticated %}
+    <form enctype="multipart/form-data" method="post" class="comment_form">
         {% csrf_token %}
         <strong>Написать комментарий:</strong><br>
-        <textarea cols="100" name="text"></textarea>
+        <textarea cols="100" rows="5" name="text"></textarea>
         <br><br>
         <button class='submit_button' type="submit">Сохранить</button>
     </form>
+{% endif %}
 {% endblock content %}

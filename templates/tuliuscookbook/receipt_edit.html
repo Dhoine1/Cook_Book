@@ -8,17 +8,25 @@
 
 {% block content %}
 {% if request.user.profile.nikname %}
-    <form enctype="multipart/form-data" method="post">
-        {% csrf_token %}
-        <input type="hidden" name="author" value="{{ request.user.id }}">
+    <div class="receipt_edit_title"><h2> БЛЮДО
+    {% if object.dish_name %}
+        - {{ object.dish_name }}
+    {% endif %}
+    </h2></div>
 
+    <form enctype="multipart/form-data" method="post" class="receipt_form">
+        {% csrf_token %}
+    <div>
+        <input type="hidden" name="author" value="{{ request.user.id }}">
+    <div class="receipt_top_edit">
+        <div class="receipt_edit_text">
         <table>
         <tr>
             <td>
                 Название блюда:
             </td>
             <td>
-                {{ form.dish_name}}
+                {{ form.dish_name }}
             </td>
         </tr>
         <tr>
@@ -26,7 +34,7 @@
                 Фото блюда:
             </td>
             <td>
-                {{ form.image}}
+                {{ form.image }}
             </td>
         </tr>
         <tr>
@@ -35,6 +43,9 @@
             </td>
             <td>
                 <select size="1" name="story" required id="id_story">
+                    {% if object.story %}
+                        <option selected value={{ object.story.id }}>{{ object.story }}</option>
+                    {% endif %}
                     {% for story in stories %}
                         <option value="{{ story.id }}">{{ story.title }}</option>
                     {% endfor %}
@@ -46,17 +57,26 @@
                 Раздел:
             </td>
             <td>
-                {{ form.section}}
+                {{ form.section }}
             </td>
         </tr>
         </table>
+        </div>
+        <div class="receipt_edit_image">
+            {%  if object.image %}
+                <img class='receipt_image' src="{ object.image.url }}" alt="receipt image"/>
+            {% else %}
+                <img class='receipt_image' src="{% static 'images/no_foto.jpg' %}" alt="no image"/>
+            {% endif %}
+        </div>
+    </div>
         <br>
-        Текст для списка рецептов: {{ form.description | safe }}<br>
-        Ингридиенты: {{ form.ingredient | safe }}<br>
-        Сам рецепт: {{ form.recipe_text | safe }}<br>
+        <h3>Краткое описание:</h3> {{ form.description | safe }}<br>
+        <h3>Ингредиенты:</h3> {{ form.ingredient | safe }}<br>
+        <h3>Рецепт: </h3>{{ form.recipe_text | safe }}<br>
 
-        <button class='submit_button' type="submit" value="Сохранить" >СОХРАНИТЬ</button>
-
+        <button class='submit_button' type="submit">СОХРАНИТЬ</button>
+    </div>
     </form>
 {% else %}
     Сперва заполните <a href="/accounts/{{ request.user.id }}/profilecreate">профиль. </a>
