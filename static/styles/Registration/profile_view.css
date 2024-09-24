@@ -91,7 +91,8 @@ h2 a{
 .story_view_receipt_author{
     display: flex;
     justify-content: space-between;
-    padding: 0px 20px 10px 20px;
+    padding: 10px 20px 10px 20px;
+    border-top: 1px solid black;
 }
 
 div a{
@@ -121,4 +122,15 @@ div a:hover{
 
 .avatar_view{
     width: 250px;
+}
+
+.receipt_author{
+    text-align: right;
+    font-family: Arial;
+}
+
+@media all and (orientation: portrait) and  (max-device-width: 812px) {
+    .story_view_main{
+        font-size: 2em;
+    }
 }

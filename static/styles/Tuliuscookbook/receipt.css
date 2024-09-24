@@ -3,6 +3,10 @@ a{
     color: black;
 }
 
+a:hover{
+    color: #93051a;
+}
+
 .receipt_infoblock{
     display: flex;
 }
@@ -54,6 +58,11 @@ a{
     justify-content: space-between;
 }
 
+.story_view_comment_right_text_create{
+    width: 20%;
+    padding-top: 10px;
+}
+
 .story_view_comment_edit_a{
     color: darkblue;
     text-decoration: none;
@@ -73,4 +82,53 @@ a{
     font-size: 1em;
     padding: 10px;
     cursor: pointer;
+}
+
+.submit_button:hover{
+    background: linear-gradient(to bottom, #2F2F1E, #71716B);
+}
+
+.only_for_small{
+    display: none;
+}
+
+@media all and (orientation: portrait) and  (max-device-width: 812px) {
+    .receipt_description{
+        font-size: 2em;
+    }
+
+    .receipt_infoblock{
+        display: block;
+    }
+
+    .receipt_infoblock_image{
+        border: none;
+        width: 90%;
+        text-align: center;
+    }
+
+    .receipt_image{
+        width: 90%;
+    }
+
+    .only_for_small{
+        display: block;
+    }
+
+    .story_view_comment{
+        font-size: 1.7em;
+    }
+
+    .story_view_comment_right_text{
+        display: block;
+    }
+
+    .comment_form{
+        font-size: 2em;
+    }
+
+    #id_text{
+        font-size: 1em;
+    }
+
 }

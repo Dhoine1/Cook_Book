@@ -1,0 +1,39 @@
+table{
+    border-collapse: collapse;
+    width: 100%;
+}
+
+table th , table td{
+    text-align: left;
+    padding: 20px;
+    vertical-align: top;
+}
+
+table td{
+    border-bottom: 1px solid black;
+}
+
+th{
+    background-color: #93051a;
+    color: #ebd9b9;
+}
+
+a{
+    text-decoration: none;
+    color: black;
+}
+
+a:hover{
+    color: #93051a;
+}
+
+.story_view_comment_edit_a{
+    color: darkblue;
+    text-decoration: none;
+    padding: 0 20px 0 0;
+}
+
+.story_view_comment_delete_a{
+    color: darkred;
+    text-decoration: none;
+}

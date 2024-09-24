@@ -30,6 +30,31 @@
     height: 50px;
 }
 
+.main_block_center{
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+}
+
+.main_block_center_left{
+    padding: 10px;
+    text-align: center;
+    /*border-right: 1px solid black;*/
+}
+
+.dish{
+    border: 1px solid black;
+    border-radius: 15px;
+    padding: 10px;
+    margin: 5px;
+    background-image: url(../../images/breadcrumbs.png);
+}
+
+.main_block_center_right{
+    text-align: center;
+    align-items: center;
+    padding: 10px;
+}
+
 .story_view_main{
     text-align: center;
 }

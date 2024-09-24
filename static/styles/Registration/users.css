@@ -43,6 +43,7 @@ table thead{
 
 table th , table td{
     text-align: center;
+    padding: 10px;
 }
 
 table tr:nth-child(even){
@@ -117,4 +118,22 @@ div a:hover{
 .story_view_comment_delete_a{
     color: darkred;
     text-decoration: none;
+}
+
+@media all and (orientation: portrait) and  (max-device-width: 812px) {
+    .table{
+        font-size: 2em;
+    }
+
+    .search_input{
+        font-size: 2em;
+    }
+
+    .Search_button{
+        font-size: 2em;
+    }
+
+    li{
+        font-size: 2em;
+    }
 }

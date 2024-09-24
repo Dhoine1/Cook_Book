@@ -19,3 +19,74 @@
     padding: 10px;
     cursor: pointer;
 }
+
+.submit_button:hover{
+    background: linear-gradient(to bottom, #2F2F1E, #71716B);
+}
+
+a{
+    text-decoration: none;
+    color: black;
+}
+
+a:hover{
+    color: #93051a;
+}
+
+.receipt_edit_title{
+    text-align: center;
+}
+
+.receipt_top_edit{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.receipt_edit_text{
+    text-align: left;
+}
+
+.receipt_edit_image{
+    text-align: center;
+}
+
+.receipt_image{
+    width: 300px;
+}
+
+@media all and (orientation: portrait) and  (max-device-width: 812px) {
+    table{
+        font-size: 2em;
+    }
+
+    #id_dish_name{
+        font-size: 2em;
+        width: 100%;
+    }
+
+    #id_image {
+        font-size: 1em;
+    }
+
+    #id_story{
+        font-size: 1em;
+        width: 100%;
+    }
+
+    #id_section{
+        font-size: 1em;
+        width: 100%;
+    }
+
+    .ck-editor-container{
+        font-size: 1em;
+    }
+
+    h3{
+        font-size: 2em;
+    }
+
+    .submit_button{
+        font-size: 2em;
+    }
+}

@@ -4,6 +4,10 @@
     text-align: center;
 }
 
+.main_block_local_img{
+    width: 200px;
+}
+
 .karusel{
     width: 600px;
     height: 140px;
@@ -28,6 +32,8 @@
 
 .receipt_line_image{
     height: 50px;
+    position: relative;
+    bottom:50px;
 }
 
 .story_view_main{
@@ -43,39 +49,64 @@ h2 a{
     color: black;
 }
 
-.story_view_receipt{
-    border-radius: 15px;
-    background-image: url(../../images/breadcrumbs.png);
-    background-repeat: repeat;
-    border: 1px solid black;
-    display: flex;
-}
-
-.story_view_receipt_left{
-    width: 30%;
-    border-right: 1px solid black;
-}
-
-.story_view_receipt_left a:hover{
+h3 a{
     color: #93051a;
 }
 
-.story_view_receipt_right{
-    width: 70%;
+.align_center{
+    text-align: center;
 }
 
-.story_view_receipt_author{
-    display: flex;
-    justify-content: space-between;
-    padding: 0px 20px 10px 20px;
+.main_block_center{
+    display: grid;
+    grid-template-columns: 2fr 1fr;
 }
 
-div a{
+.main_block_center_left{
+    padding: 10px;
+    /*border-right: 1px solid black;*/
+}
+
+.dish{
+    border: 1px solid black;
+    border-radius: 15px;
+    padding: 10px;
+    margin: 5px;
+    background-image: url(../../images/breadcrumbs.png);
+}
+
+.fact{
+    border: 1px solid black;
+    border-radius: 15px;
+    padding: 10px;
+    background-image: url(../../images/breadcrumbs.png);
+    height: 175px;
+    align-content: center;
+    /*width: 50%;*/
+    /*margin: 0 auto;*/
+}
+
+.main_block_center_right{
+    text-align: center;
+    align-items: center;
+    padding: 10px;
+
+}
+
+.bottom_block{
+    text-align: center;
+}
+
+.bottom_img{
+    width: 75%;
+}
+
+a{
     text-decoration: none;
     color: black;
 }
 
-div a:hover{
+a:hover{
     color: #93051a;
 }
 
@@ -84,13 +115,59 @@ div a:hover{
     justify-content: space-around;
 }
 
+.receipt_author_edit{
+    display: flex;
+    justify-content: space-between;
+}
+
 .story_view_comment_edit_a{
     color: darkblue;
     text-decoration: none;
     padding: 0 20px 0 0;
 }
 
-.story_view_comment_delete_a{
+.story_view_comment_delete_a {
     color: darkred;
     text-decoration: none;
+}
+
+@media screen and (max-width: 1000px) {
+    .main_block_local_img{
+        display: none;
+    }
+}
+
+
+@media all and (orientation: portrait) and  (max-device-width: 812px) {
+    .karusel{
+        width: 700px;
+        height: 250px;
+    }
+
+    .block_karusel{
+        width: 140px;
+        height: 250px;
+        margin: 10px;
+        font-size: 1.5em;
+    }
+
+    .story_view_main{
+        font-size: 1.5em;
+    }
+
+    h2{
+        font-size: 2em;
+    }
+
+    .story_section{
+        font-size: 1.5em;
+    }
+
+    .story_view_receipt_right{
+        font-size: 1.5em;
+    }
+
+    .main_block_center{
+        display: block;
+    }
 }

@@ -116,3 +116,33 @@ div a:hover{
     color: darkred;
     text-decoration: none;
 }
+
+@media all and (orientation: portrait) and  (max-device-width: 812px) {
+    table{
+        font-size: 2em;
+    }
+
+    .profile_main_block{
+        display: block;
+    }
+
+    #id_nikname{
+        font-size: 1em;
+    }
+
+    #id_avatar{
+        font-size: 1em;
+    }
+
+    #id_signature{
+        font-size: 1em;
+    }
+
+    button{
+        font-size: 1em;
+    }
+
+    .story_view_receipt{
+        font-size: 1.8em;
+    }
+}

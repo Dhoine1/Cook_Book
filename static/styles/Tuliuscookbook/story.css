@@ -43,6 +43,7 @@ table thead{
 
 table th , table td{
     text-align: center;
+    padding: 10px;
 }
 
 table tr:nth-child(even){
@@ -91,7 +92,8 @@ h2 a{
 .story_view_receipt_author{
     display: flex;
     justify-content: space-between;
-    padding: 0px 20px 10px 20px;
+    padding: 10px 20px 10px 20px;
+    border-top: 1px solid black;
 }
 
 div a{
@@ -117,4 +119,55 @@ div a:hover{
 .story_view_comment_delete_a{
     color: darkred;
     text-decoration: none;
+}
+
+.receipt_author{
+    text-align: right;
+    font-family: Arial;
+}
+
+@media all and (orientation: portrait) and  (max-device-width: 812px) {
+    .table{
+        font-size: 2em;
+    }
+
+    .search_input{
+        font-size: 2em;
+    }
+
+    .Search_button{
+        font-size: 2em;
+    }
+
+    li{
+        font-size: 2em;
+    }
+
+    .story_banner{
+        width: 750px;
+    }
+
+    h2{
+        font-size: 2.5em;
+    }
+
+    .story_view_main p{
+        font-size: 2em;
+    }
+
+    .story_view_receipt_author{
+        font-size: 2em;
+    }
+
+    .story_section{
+        font-size: 2em;
+    }
+
+    .menu_section{
+        display: grid;
+        font-size: 2em;
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-row-gap: 25px
+    }
+
 }

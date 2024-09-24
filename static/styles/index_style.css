@@ -16,6 +16,7 @@
 	width: 400px;
 	height: 200px;
 	padding: 20px;
+    margin: 20px;
 	border-radius: 25px;
 	border: 2px solid #d69200;
     line-height: 50px;
@@ -27,4 +28,21 @@
 	border: 3px solid #d69200;
 	box-shadow: 3px 3px 4px;
 	cursor: pointer;
+}
+
+.block_img{
+    height: 120px;
+}
+
+@media all and (orientation: portrait) and  (max-device-width: 812px) {
+    .main{
+        display: block;
+        align-items: center;
+        text-align: center;
+    }
+
+    .block{
+        /*margin-top: 100px;*/
+        margin: 30px auto;
+    }
 }

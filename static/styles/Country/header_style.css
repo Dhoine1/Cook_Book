@@ -1,9 +1,13 @@
+@font-face {
+    src: url(../../fonts/20451.ttf);
+    font-family: 'Slima';
+}
+
 body {
     background-color: #a789c0;
     background-repeat: repeat;
     margin: 0;
     padding: 0;
-    font-family: "Palatino Linotype";
 }
 
 header {
@@ -37,6 +41,10 @@ header {
 .header_start_page {
     margin: 10px;
     width: 50px;
+    height: 50px;
+}
+
+.header_start_page_image{
     height: 50px;
 }
 
