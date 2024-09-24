@@ -94,3 +94,16 @@ class Comment(models.Model):
 
     def __str__(self):
         return f'{self.text}. Автор: {self.author.profile.nikname}'
+
+
+class Fact(models.Model):
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    text = models.TextField(verbose_name='Интересный факт')
+    time_creation = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
+
+    class Meta:
+        verbose_name = 'Факт'
+        verbose_name_plural = 'Факты'
+
+    def __str__(self):
+        return f'{self.text}. Автор: {self.author.profile.nikname}'

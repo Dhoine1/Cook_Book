@@ -1,21 +1,26 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.db.models import Q
+from django.db.models import Q, Count, F
 from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, ListView, DetailView, UpdateView, DeleteView
-import json
-import requests
+import random
 
 from .models import *
 from .forms import ReceiptForm, CommentForm
 
 
 def start(request):
-    sections = Section.objects.all()
     new_receipts = Recipe.objects.all().order_by('-time_creation')[0:5]
-    return render(request, 'tuliuscookbook/start.html', {'sections': sections,
-                                                         'new_receipts': new_receipts})
+    new_comments = Comment.objects.all().order_by('-time_creation')[0:5]
+    count = Fact.objects.all().count()
+    random_number = random.randint(0, count - 1)
+    useless_fact = Fact.objects.all()[random_number]
+    sections = Section.objects.all()
+    return render(request, 'tuliuscookbook/start.html', {'new_receipts': new_receipts,
+                                                         'new_comments': new_comments,
+                                                         'useless_fact': useless_fact,
+                                                         'sections': sections})
 
 
 # Список сюжетов для ссылки "игры"
@@ -28,14 +33,18 @@ class ListOfGame(ListView):
 
     def get_queryset(self, **kwargs):
         if self.request.GET:
-            if "story" in self.request.GET:
+            if "story" in self.request.GET and self.request.GET.get("story"):
                 story = self.request.GET.get("story")
-                stories = CatalogStories.objects.filter(Q(title__iregex=story)).order_by('title')
+                stories = CatalogStories.objects.filter(Q(title__iregex=story)).annotate(number=Count('recipe')).order_by('title')
                 return stories
-            else:
-                return CatalogStories.objects.all().order_by('title')
-        else:
-            return CatalogStories.objects.all().order_by('title')
+            elif "sort_by" in self.request.GET:
+                sort_by = self.request.GET.get("sort_by")
+                if sort_by == "title":
+                    sort = 'title'
+                elif sort_by == "receipts_count":
+                    sort = '-number'
+                return CatalogStories.objects.all().annotate(number=Count('recipe')).order_by(sort)
+        return CatalogStories.objects.all().annotate(number=Count('recipe')).order_by('title')
 
 
 # Список рецептов для ссылки "рецепты по играм"
@@ -44,12 +53,15 @@ class ListOfReceipts(ListView):
     ordering = ['time_creation']
     template_name = 'tuliuscookbook/receipt_list.html'
     context_object_name = 'receipt_list'
-    paginate_by = 20
+    paginate_by = 10
 
     def get_queryset(self, **kwargs):
         if self.request.GET:
-            section = self.request.GET.get("section")
-            receipts = Recipe.objects.filter(section=section).order_by('-time_creation')
+            if "section" in self.request.GET and self.request.GET.get("section"):
+                section = self.request.GET.get("section")
+                receipts = Recipe.objects.filter(section=section).order_by('-time_creation')
+            else:
+                receipts = Recipe.objects.all().order_by('-time_creation')
             return receipts
         else:
             return Recipe.objects.all().order_by('-time_creation')
@@ -137,9 +149,9 @@ class CommentDelete(LoginRequiredMixin, DeleteView):
     success_url = reverse_lazy('receipts')
 
 
+# Случайный факт
 def fact(request):
-    url = "https://uselessfacts.jsph.pl/random.json?language=en"
-    response = requests.get(url)
-    data = json.loads(response.text)
-    useless_fact = data['text']
+    count = Fact.objects.all().count()
+    random_number = random.randint(0, count-1)
+    useless_fact = Fact.objects.all()[random_number]
     return render(request, 'tuliuscookbook/fact.html', {'fact_ru': useless_fact})
